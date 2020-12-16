@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { MenuController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { UsuarioService } from 'src/services/UsuarioService';
+import { NavigationEnd, Router } from '@angular/router';
+import { Usuario } from 'src/models/Usuario';
 
 @Component({
   selector: 'app-root',
@@ -13,44 +16,24 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
+      title: 'Perfil',
+      url: '/perfil',
+      icon: 'person-circle'
+    }    
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  
+  public usuario: Usuario = new Usuario();
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private _usuarioService: UsuarioService,
+    private _menu: MenuController,
+    private _router: Router
   ) {
     this.initializeApp();
+    this.acompanharRota();
   }
 
   initializeApp() {
@@ -66,4 +49,31 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
   }
+
+  pegarUsuarioLogado() {
+    const usuarioEncontrado: Usuario = this._usuarioService.retornarUsuarioLogado();
+
+    if (usuarioEncontrado) {
+      this.usuario = usuarioEncontrado;
+    }
+  }
+
+  acompanharRota() {
+    this._router.events.subscribe(res => {
+      if (res instanceof NavigationEnd) {
+        console.log(res);
+        this.pegarUsuarioLogado();
+      }
+    });
+  }
+
+  logout() {
+    // limpar o localStorage
+    this._usuarioService.logout();
+    // bloquear arraste do menu
+    this._menu.swipeGesture(false);
+    // direcionar para pagina login
+    this._router.navigate(['/login']);
+  }
+  
 }

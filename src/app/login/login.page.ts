@@ -1,9 +1,9 @@
+import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Login } from 'src/models/Login';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/services/LoginService';
 import { UsuarioService } from 'src/services/UsuarioService';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
     console.log(this.login);
     let retorno = this._loginService.login(this.login).subscribe((res) => {
       this._usuarioService.logar(res);
-      this._route.navigate(['/assistir']);
+      this._route.navigate(['/perfil']);
       console.log(res);
     });
   }

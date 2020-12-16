@@ -1,20 +1,22 @@
-import { ErrorHandler, Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
-@Injectable({
-    providedIn: 'root',
-})
-export class ErrosGlobais implements ErrorHandler{
+import { ErrorHandler, Injectable, ViewChild } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
-    constructor(private _alert: AlertController){
+@Injectable({
+    'providedIn': 'root',
+})
+export class ErrosGlobais implements ErrorHandler {
+    public htmlLoading: HTMLIonLoadingElement;
+    constructor(private _alert: AlertController) {
 
     }
 
     handleError(error: any): void {
 
-        console.log(error);
+        // console.log(error);
+        this.fecharLoading();
 
-        if(error instanceof Error){
+        if (error instanceof Error) {
             let er: Error = error;
             this.mostrarErro(er.message);
         }
@@ -22,7 +24,7 @@ export class ErrosGlobais implements ErrorHandler{
         if (error instanceof HttpErrorResponse) {
             let er: HttpErrorResponse = error;
             let msg;
-            switch (er.status){
+            switch (er.status) {
                 case 404:
                     msg = "Endereço não encontrado.";
                     break;
@@ -34,18 +36,27 @@ export class ErrosGlobais implements ErrorHandler{
             }
             this.mostrarErro(msg);
         }
-        
     }
+
+    fecharLoading() {
+        setTimeout(() => {
+            this.htmlLoading = <HTMLIonLoadingElement> document.getElementById('custom-loading');
+
+            if (this.htmlLoading) {
+                this.htmlLoading.dismiss();
+            }
+        }, 500);
+    }    
 
     async mostrarErro(msg: string) {
         const alert = await this._alert.create({
-          cssClass: 'alert-padrao',
-          header: 'Atenção',
-          message: msg,
-          buttons: ['OK']
+            cssClass: 'alert-padrao',
+            header: 'Atenção',
+            message: msg,
+            buttons: ['OK']
         });
-    
-        await alert.present();
-      }
 
+        await alert.present();
+    }
+    
 }

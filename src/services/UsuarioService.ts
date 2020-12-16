@@ -1,41 +1,58 @@
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { IUsuarioService } from 'src/interfaces/IUsuarioService';
 import { Usuario } from 'src/models/Usuario';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import{ HttpClient } from '@angular/common/http';
 import { Global } from 'src/shared/Global';
-
+@Injectable({
+    'providedIn': 'root'
+})
 export class UsuarioService implements IUsuarioService{
-
+    
     public apiUrl: string = `${Global.ApiUrl}usuarios`;
 
     constructor(private _httpClient: HttpClient){
 
     }
+    buscarUsuario(): Observable<Usuario> {
+        const usuario: Usuario = this.retornarUsuarioLogado();
+        return this._httpClient.get<Usuario>(`${this.apiUrl}/${usuario.id}`);
+    }
 
     cadastrar(usuario: Usuario): Observable<Usuario> {
-        if(!usuario.nome) throw new Error ('O campo nome é obrigratório.');
-        if(!usuario.email) throw new Error ('O campo email é obrigatório.');
-        if(!usuario.confirmarEmail) throw new Error ('O campo confirmar email é obrigatório');
-        if(!usuario.senha) throw new Error ('O campo senha é obrigatório.');
-        if(!usuario.confirmarSenha) throw new Error ('O campo confirmar senha é obrigatório.');
-        throw new Error("Já pode Salvar.");
+        //Valores falsos: 0, null, undefined, ""
+        if(!usuario.nome) throw new Error('O campo Nome é obrigatório.');
+        if(!usuario.email) throw new Error('O campo Email é obrigatório.');
+        if(usuario.email != usuario.confirmarEmail) throw new Error('O campo Confirmar Email não confere com o campo de Email.');
+        if(!usuario.senha) throw new Error('O campo Senha é obrigatório.');
+        if(usuario.senha != usuario.confirmarSenha) throw new Error('As Senhas não coincidem.');
+        
+        return this._httpClient.post<Usuario>(this.apiUrl, usuario);
     }
     atualizar(usuario: Usuario): Observable<Usuario> {
-        throw new Error('Method not implemented.');
+
+        if(!usuario.nome) throw new Error('O campo Nome é obrigatório.');
+        if(!usuario.email) throw new Error('O campo Email é obrigatório.');
+        if(usuario.email != usuario.confirmarEmail) throw new Error('O campo Confirmar Email não confere com o campo de Email.');
+
+        if(usuario.senha) {
+            if(usuario.senha != usuario.confirmarSenha) throw new Error('As Senhas não coincidem.');
+        }
+        
+        return this._httpClient.put<Usuario>(`${this.apiUrl}/${usuario.id}`, usuario);
     }
     logar(usuario: Usuario): void {
-        throw new Error('Method not implemented.');
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
     }
     retornarUsuarioLogado(): Usuario {
         let usuario: Usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
         return usuario;
     }
+
     logout(): void {
+        //localStorage.removeItem('usuarioLogado')
         localStorage.clear();
+        
     }
-    buscarUsuario(): Observable<Usuario> {
-        const usuario: Usuario = this.retornarUsuarioLogado();
-        return this._httpClient.get<Usuario>(`${this.apiUrl}/${usuario.id}`);
-    }
-    
+
 }
