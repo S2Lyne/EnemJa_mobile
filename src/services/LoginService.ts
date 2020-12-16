@@ -9,7 +9,6 @@ import { Global } from 'src/shared/Global';
 @Injectable({
     'providedIn': 'root',
 })
-
 export class LoginService implements ILoginService{
 
     public apiUrl: string = Global.ApiUrl+"usuarios/login";
@@ -19,7 +18,6 @@ export class LoginService implements ILoginService{
     }
 
     login(dados: Login): Observable<Usuario> {
-
         if(!dados.email) throw new Error ('O campo email é obrigatório');
         if(!dados.senha) throw new Error ('O campo senha é obrigatório');
 

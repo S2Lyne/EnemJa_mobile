@@ -1,8 +1,5 @@
 {
-  "name": "app_mobile_EnemJa",
-  "integrations": {
-    "cordova": {},
-    "capacitor": {}
-  },
+  "name": "EnemJA",
+  "integrations": {},
   "type": "angular"
 }
