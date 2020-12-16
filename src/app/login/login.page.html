@@ -5,5 +5,22 @@
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
 
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="login.email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" [(ngModel)]="login.senha"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full"(click)="fazerLogin();">Logar</ion-button>
+    
+    </ion-col>
+  </ion-row>
+  
 </ion-content>
