@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Meus Cursos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+      <!--Kista de carros do usuario-->
+      <ion-row *ngIf="matriculas.length > 0">
+
+        <ion-col>
+
+          <ion-list>
+
+            <ion-item *ngFor="let matricula of matriculas" (click)='vizualizarCurso(curso.id)'>
+              {{ curso.nome }} - {{ curso.professor }}
+            </ion-item>
+            
+          </ion-list>
+
+        </ion-col>
+
+      </ion-row>
+
+      <!--Botao para criar um carro-->
+
+      <ion-row *ngIf="matriculas.length == 0">
+
+        <ion-col>
+          <h2>Você ainda não possui Cursos, Matricule-se AGORA!</h2>
+          <ion-button (click)="chamarCursos();" expand="full">Veja Nossos Cursos</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+</ion-content>

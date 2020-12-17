@@ -1,3 +1,5 @@
+import { Matricula } from './Matricula';
+
 export class Usuario {
     public id: number = null;
     public email: string = null;
@@ -5,4 +7,5 @@ export class Usuario {
     public nome: string = null;
     public senha: string = null;
     public confirmarSenha: string = null;
+    public matriculas: Matricula[] = new Array<Matricula>();
 }

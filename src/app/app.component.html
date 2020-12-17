@@ -5,7 +5,19 @@
         <ion-list id="inbox-list">
           <ion-list-header>{{ usuario.nome }}</ion-list-header>
           <ion-note>{{ usuario.email }}</ion-note>
+          
+          <ion-grid>
+            <ion-row>
+              <ion-col calss="btn-logout">
 
+                <ion-menu-toggle>
+                  <ion-button color="danger" size="small" (click)="logout();">Sair</ion-button>
+                </ion-menu-toggle>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>

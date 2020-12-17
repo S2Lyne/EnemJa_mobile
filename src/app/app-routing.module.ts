@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'cursos',
     loadChildren: () => import('./cursos/cursos.module').then( m => m.CursosPageModule)
+  },  {
+    path: 'matriculas',
+    loadChildren: () => import('./matriculas/matriculas.module').then( m => m.MatriculasPageModule)
   }
+
 ];
 
 @NgModule({

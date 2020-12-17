@@ -25,6 +25,11 @@ export class AppComponent implements OnInit {
       title: 'Meu Perfil',
       url: '/perfil',
       icon: 'person-circle'
+    },
+    {
+      title: 'Meus Cursos',
+      url: '/matriculas',
+      icon: 'list-circle'
     }
   ];
   
