@@ -14,6 +14,8 @@ import { LoginService } from 'src/services/LoginService';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrosGlobais } from 'src/shared/ErrosGlobais';
 
+import { VideoPlayer } from '@ionic-native/video-player/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -30,6 +32,7 @@ import { ErrosGlobais } from 'src/shared/ErrosGlobais';
     SplashScreen,
     UsuarioService,
     LoginService,
+    VideoPlayer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: ErrorHandler, useClass: ErrosGlobais }
   ],

@@ -28,11 +28,11 @@ export class CursoService implements ICursoService {
     }    
     
     listar(): Observable<Curso[]> {
-            return this._httpClient.get<Curso[]>(this.apiUrl+'cursos');
+        return this._httpClient.get<Curso[]>(this.apiUrl+'cursos');
     }
 
     buscar(curso_id: number): Observable<Curso> {
-        throw new Error('Method not implemented.');
-    }
+        return this._httpClient.get<Curso>(this.apiUrl+`show-curso/${curso_id}`);
+    }    
 
 }
