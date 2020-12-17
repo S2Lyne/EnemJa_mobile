@@ -32,7 +32,7 @@ export class MatriculasPage implements OnInit {
   }
 
   vizualizarCurso(curso_id: Number){
-    this._router.navigate([`/cursos/${curso_id}`]);
+    this._router.navigate([`/matriculas/${curso_id}`]);
   }
 
   chamarCursos()
