@@ -7,32 +7,32 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cadastrar-usuario',
   templateUrl: './cadastrar-usuario.page.html',
-  styleUrls: ['./cadastrar-usuario.page.scss'],
+  styleUrls:['./cadastrar-usuario.page.scss'],
 })
 export class CadastrarUsuarioPage implements OnInit {
 
   public usuario: Usuario = new Usuario();
   constructor(private _usuarioService: UsuarioService, 
-    private _menu: MenuController, private _router: Router) {
-    console.log(this.usuario); 
+    private _menu: MenuController, private _router: Router) { 
+    console.log(this.usuario);
   }
 
   ngOnInit() {
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(){
     console.log('O menu foi bloqueado.');
-    // bloqueando o menu lateral ao construir a view
+    //bloqueando o menu lateral ao construir a view
     this._menu.swipeGesture(false);
   }
 
-  criarUsuario() {
+  criarUsuario(){
     console.log(this.usuario);
-    this._usuarioService.cadastrar(this.usuario).subscribe(usuario => {
+    this._usuarioService.cadastrar(this.usuario).subscribe(usuario =>{
       console.log(usuario);
-      // direcionar para o login
+      //direcionar para o login
       this._router.navigate(['/login']);
+
     })
   }
-
 }
