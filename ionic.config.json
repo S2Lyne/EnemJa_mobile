@@ -1,5 +1,7 @@
 {
   "name": "EnemJA",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--Menu-->
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cursos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>    
+    <ion-row *ngIf="cursos.length > 0">
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let curso of cursos">
+            {{ curso.nome }} - {{ curso.professor }}
+            <ion-button (click)="matricular(curso.id);">
+              Matricular
+            </ion-button>
+          </ion-item> 
+        </ion-list>
+      </ion-col>   
+    </ion-row>
+  </ion-grid>
+</ion-content>
