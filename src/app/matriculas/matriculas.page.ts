@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Matricula } from 'src/models/Matricula';
-import { IMatriculaService } from 'src/interfaces/IMatriculaService';
+import { LoadingController } from '@ionic/angular';
+import { Curso } from 'src/models/Curso';
 import { MatriculaService } from 'src/services/MatriculaService';
 
 @Component({
@@ -9,30 +9,34 @@ import { MatriculaService } from 'src/services/MatriculaService';
   templateUrl: './matriculas.page.html',
   styleUrls: ['./matriculas.page.scss'],
 })
+
 export class MatriculasPage implements OnInit {
-
-  public matriculas: Matricula[] = new Array<Matricula>();
-
-  constructor(private _router: Router,
-    private _matriculaService: MatriculaService) {
-      this.obterCursos();
-     }
-
-  ngOnInit() {
+  
+  public matriculas: Curso[] = new Array<Curso>();
+  private _htmlLoading: HTMLIonLoadingElement
+  
+  constructor(
+    private _router: Router,
+    private _matriculaService: MatriculaService,
+    private _loading: LoadingController
+  ) {
+    this.obterCursos();
   }
+
+  ngOnInit() {}
 
   ionViewDidEnter(){
     this.obterCursos();
   }
 
   async obterCursos(){
-    const listaMatriculas = await this._matriculaService.listarMatricula();
-    this.matriculas = listaMatriculas;
-    console.log(this.matriculas);
+    this._matriculaService.listarMatricula().subscribe(res => {
+      this.matriculas = res;
+    })
   }
 
   vizualizarCurso(curso_id: Number){
-    this._router.navigate([`/cursos/${curso_id}`]);
+    this._router.navigate([`/show-curso/${curso_id}`]);
   }
 
   chamarCursos()

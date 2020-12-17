@@ -17,8 +17,9 @@
 
           <ion-list>
 
-            <ion-item *ngFor="let matricula of matriculas" (click)='vizualizarCurso(curso.id)'>
-              {{ curso.nome }} - {{ curso.professor }}
+            <ion-item *ngFor="let matricula of matriculas">
+              Curso: {{ matricula.nome }} 
+              <ion-button  [routerLink]="['/show-curso', matricula.id]">COMEÇAR</ion-button>
             </ion-item>
             
           </ion-list>
@@ -33,7 +34,7 @@
 
         <ion-col>
           <h2>Você ainda não possui Cursos, Matricule-se AGORA!</h2>
-          <ion-button (click)="chamarCursos();" expand="full">Veja Nossos Cursos</ion-button>
+          <ion-button (click)="verAula(aula.link);" expand="full">Veja Nossos Cursos</ion-button>
         </ion-col>
       </ion-row>
 

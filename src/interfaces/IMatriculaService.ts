@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs';
-import { Matricula } from 'src/models/Matricula';
+import { Curso } from 'src/models/Curso';
 
 export interface IMatriculaService{
     
-    listarMatricula() : Promise<Matricula[]>;
-    
+    listarMatricula() : Observable<Curso[]>;    
     
 }

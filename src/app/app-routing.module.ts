@@ -22,10 +22,16 @@ const routes: Routes = [
   {
     path: 'cursos',
     loadChildren: () => import('./cursos/cursos.module').then( m => m.CursosPageModule)
-  },  {
+  },  
+  {
     path: 'matriculas',
     loadChildren: () => import('./matriculas/matriculas.module').then( m => m.MatriculasPageModule)
+  },
+  {
+    path: 'show-curso/:curso_id',
+    loadChildren: () => import('./show-curso/show-curso.module').then( m => m.ShowCursoPageModule)
   }
+
 
 ];
 
