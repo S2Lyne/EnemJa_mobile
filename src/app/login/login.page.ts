@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { Login } from 'src/models/Login';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/services/LoginService';
 import { UsuarioService } from 'src/services/UsuarioService';
 
@@ -12,42 +12,38 @@ import { UsuarioService } from 'src/services/UsuarioService';
 })
 export class LoginPage implements OnInit {
   public login: Login = new Login();
-  private _htmlLoading: HTMLIonLoadingElement;
   constructor(private _menu: MenuController, 
-    private _route: Router, private _loginService: LoginService, 
-    private _usuarioService: UsuarioService) {}
+    private _route: Router, private _loginService: LoginService,
+    private _usuarioService: UsuarioService) { }
 
   ngOnInit() {
     console.log('O menu foi bloqueado.');
-    // bloqueando o menu lateral ao construir a view
+    //bloqueando o menu lateral ao construir a view
     this._menu.swipeGesture(false);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(){
     console.log('O menu foi bloqueado.');
-    // bloqueando o menu lateral ao construir a view
+    //bloqueando o menu lateral ao construir a view
     this._menu.swipeGesture(false);
   }
-
+  
   ionViewWillLeave() {
-    // habilitando o arraste do menu ao sair da view
+    //habilitando o arraste do menu ao sair da view
     this._menu.swipeGesture(true);
   }
 
-
-
-  fazerLogin() {
+  fazerLogin(){
     console.log(this.login);
-    this._loginService.login(this.login).subscribe((res) => {
+    let retorno = this._loginService.login(this.login).subscribe((res) => {
       this._usuarioService.logar(res);
       this._route.navigate(['/cursos']);
       console.log(res);
     });
-
   }
 
-  fazerCadastro() {
-    this._route.navigate(['/cadastrar-usuario']);
+  fazerCadastro(){
+    this._route.navigate(['/cadastrar-usuario'])
   }
 
 }

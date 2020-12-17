@@ -11,17 +11,19 @@ import { UsuarioService } from 'src/services/UsuarioService';
 export class PerfilPage implements OnInit {
 
   public usuario: Usuario = new Usuario();
-  constructor(private _usuarioService: UsuarioService, private _alert: AlertController) {}
+  constructor(private _usuarioService: UsuarioService, private _alert: AlertController) {
+    
 
-  ionViewDidEnter() {
+  }
+  ionViewDidEnter(){
     this.usuario = this._usuarioService.retornarUsuarioLogado();
   }
 
   ngOnInit() {
   }
-
   atualizarUsuario() {
     this._usuarioService.atualizar(this.usuario).subscribe(res => {
+      console.log(res);
       if (res) {
         this._usuarioService.logar(res);
         this.mostrarMensagemSucesso();
@@ -34,10 +36,11 @@ export class PerfilPage implements OnInit {
       cssClass: 'modal-sucesso',
       header: 'Atualização de cadastro',
       message: 'Seus dados foram atualizados com sucesso!',
-      buttons: ['Fechar']
+      buttons: ['fechar']
     });
 
     await alert.present();
   }
+
 
 }
