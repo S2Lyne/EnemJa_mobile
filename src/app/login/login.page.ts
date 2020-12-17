@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
     console.log(this.login);
     let retorno = this._loginService.login(this.login).subscribe((res) => {
       this._usuarioService.logar(res);
-      this._route.navigate(['/perfil']);
+      this._route.navigate(['/cursos']);
       console.log(res);
     });
   }

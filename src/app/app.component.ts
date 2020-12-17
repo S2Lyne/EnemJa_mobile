@@ -15,11 +15,17 @@ import { Usuario } from 'src/models/Usuario';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
+    
     {
-      title: 'Perfil',
+      title: 'Cursos',
+      url: '/cursos',
+      icon: 'videocam'
+    },
+    {
+      title: 'Meu Perfil',
       url: '/perfil',
       icon: 'person-circle'
-    }    
+    }
   ];
   
   public usuario: Usuario = new Usuario();
